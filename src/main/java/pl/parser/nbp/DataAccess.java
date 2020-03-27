@@ -28,8 +28,8 @@ public class DataAccess {
 
     public Map<String,String> getData() throws ParserConfigurationException, SAXException, IOException {
         HttpConnect httpConnect = HttpConnect.getHttpConnect(NBP_URL);
-        ParamBuilder paramBuilder = new ParamBuilder();
-        List<String> listOfParam = paramBuilder.getParameters(this.START_DATE, this.END_DATE);
+        DateBuilder dateBuilder = new DateBuilder();
+        List<String> listOfParam = dateBuilder.getParameters(this.START_DATE, this.END_DATE);
         Map<String,String> data = new HashMap<>();
         List<Double> avgBuyList = new LinkedList<>();
         List<Double> avgSellList = new LinkedList<>();

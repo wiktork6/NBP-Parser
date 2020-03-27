@@ -5,19 +5,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParamBuilder {
+public class DateBuilder {
 
-    public ParamBuilder(){
+    public DateBuilder(){
     }
 
     public List<String> getParameters(String startDate, String endDate){
         List<LocalDate> listOfDates = getAllDates(startDate, endDate);
-        List<String> listOfParams = new LinkedList();
+        List<String> dates = new LinkedList();
         for(int i=0; i<listOfDates.size();i++){
             System.out.println(listOfDates.get(i).toString());
-            listOfParams.add(listOfDates.get(i).toString());
+            dates.add(listOfDates.get(i).toString());
         }
-        return listOfParams;
+        return dates;
     }
 
     private List<LocalDate> getAllDates(String startDate, String endDate){
