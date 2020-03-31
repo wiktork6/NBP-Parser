@@ -1,4 +1,4 @@
-package com.example;
+package pl.parser.nbp;
 
 import java.util.List;
 

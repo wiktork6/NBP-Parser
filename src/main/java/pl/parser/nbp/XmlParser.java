@@ -1,4 +1,4 @@
-package com.example;
+package pl.parser.nbp;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,7 +11,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class XmlParser {
     private HttpURLConnection conn;
@@ -44,7 +43,6 @@ public class XmlParser {
                 DataValidator dataValidator = new DataValidator();
                 String buyRate = eElement.getElementsByTagName(tagName).item(0).getTextContent();
                 String numberBuyRate = dataValidator.replaceChar(buyRate,',', '.');
-                System.out.println(tagName + " " + Double.valueOf(numberBuyRate));
                 price = Double.valueOf(numberBuyRate);
                 break;
             }
@@ -61,10 +59,4 @@ public class XmlParser {
         return doc.getElementsByTagName(PUBLICATION_DATE_TAG).item(0).getTextContent();
     }
 
-    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-        URL url = new URL("http://www.nbp.pl/kursy/xml/c001z020102.xml");
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        XmlParser xmlParser = new XmlParser(con);
-        System.out.println(xmlParser.getPublicationDate());
-    }
 }

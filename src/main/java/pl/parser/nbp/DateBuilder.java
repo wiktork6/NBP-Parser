@@ -1,4 +1,4 @@
-package com.example;
+package pl.parser.nbp;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -10,22 +10,21 @@ public class DateBuilder {
     public DateBuilder(){
     }
 
-    public List<String> getParameters(String startDate, String endDate){
-        List<LocalDate> listOfDates = getAllDates(startDate, endDate);
+    public List<String> getDates(String startDate, String endDate){
+        List<LocalDate> listOfDates = getLocalDates(startDate, endDate);
         List<String> dates = new LinkedList();
         for(int i=0; i<listOfDates.size();i++){
-            System.out.println(listOfDates.get(i).toString());
             dates.add(listOfDates.get(i).toString());
         }
         return dates;
     }
 
-    private List<LocalDate> getAllDates(String startDate, String endDate){
+    private List<LocalDate> getLocalDates(String startDate, String endDate){
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        List<LocalDate> listOfDates = new LinkedList<>(start.datesUntil(end).collect(Collectors.toList()));
-        listOfDates.add(end);
-        return listOfDates;
+        List<LocalDate> dates = new LinkedList<>(start.datesUntil(end).collect(Collectors.toList()));
+        dates.add(end);
+        return dates;
     }
 
 }

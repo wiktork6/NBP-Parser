@@ -1,55 +1,55 @@
-package com.example;
+package pl.parser.nbp;
 
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class DataAccess {
-    private final String CURRENCY;
-    private final String START_DATE;
-    private final String END_DATE;
-    private final String NBP_URL;
-    private static final String NBP_URL_C = "http://www.nbp.pl/kursy/xml/dir.aspx?tt=C";
+    private final String currency;
+    private final String start_date;
+    private final String end_date;
     public static final String BUY_RATE_TAG = "kurs_kupna";
     public static final String SELL_RATE_TAG = "kurs_sprzedazy";
 
-    public DataAccess(String CURRENCY, String START_DATE, String END_DATE, String NBP_URL) {
-        this.CURRENCY = CURRENCY;
-        this.START_DATE = START_DATE;
-        this.END_DATE = END_DATE;
-        this.NBP_URL = NBP_URL;
+    public DataAccess(String currency, String start_date, String end_date) {
+        this.currency = currency;
+        this.start_date = start_date;
+        this.end_date = end_date;
     }
 
-    public Map<String,String> getData() throws ParserConfigurationException, SAXException, IOException {
-        HttpConnect httpConnect = HttpConnect.getHttpConnect(NBP_URL);
+    public Map<String,String> getData() throws ParserConfigurationException, SAXException, IOException, ParseException {
+        HttpConnect httpConnect = HttpConnect.getHttpConnect();
         DateBuilder dateBuilder = new DateBuilder();
-        List<String> listOfParam = dateBuilder.getParameters(this.START_DATE, this.END_DATE);
+        List<String> dates = dateBuilder.getDates(this.start_date, this.end_date);
         Map<String,String> data = new HashMap<>();
         List<Double> avgBuyList = new LinkedList<>();
         List<Double> avgSellList = new LinkedList<>();
-        LinkScraper linkScraper = new LinkScraper();
-        List<String> links = linkScraper.findLinks(NBP_URL_C);
+        LinkBuilder linkBuilder = new LinkBuilder();
+
+
+        List<String> links = linkBuilder.getLinksToDocuments(this.start_date, this.end_date);
         DataValidator dataValidator = new DataValidator();
         for(String link: links) {
             HttpURLConnection con = httpConnect.createRequest(link);
             XmlParser xmlParser = new XmlParser(con);
             String publicationDate = xmlParser.getPublicationDate();
-            if(dataValidator.isDateInRange(this.START_DATE, this.END_DATE, publicationDate)){
+            if(dataValidator.isDateInRange(this.start_date, this.end_date, publicationDate)){
                 con = httpConnect.createRequest(link);
                 xmlParser = new XmlParser(con);
-                Double avgBuyDay = xmlParser.getPriceValue(this.CURRENCY, BUY_RATE_TAG);
+                Double avgBuyDay = xmlParser.getPriceValue(this.currency, BUY_RATE_TAG);
                 con = httpConnect.createRequest(link);
                 xmlParser = new XmlParser(con);
-                Double avgSellDay = xmlParser.getPriceValue(this.CURRENCY, SELL_RATE_TAG);
+                Double avgSellDay = xmlParser.getPriceValue(this.currency, SELL_RATE_TAG);
                 avgBuyList.add(avgBuyDay);
                 avgSellList.add(avgSellDay);
-                if(avgBuyList.size()==listOfParam.size()){
+                if(avgBuyList.size()==dates.size()){
                     break;
                 }
             }
@@ -58,9 +58,9 @@ public class DataAccess {
         Double avgBuyPeriod = dataCounter.average(avgBuyList);
         Double standardDeviationOfSellRates = dataCounter.standardDeviation(avgSellList);
 
-        data.put("Currency: ", this.CURRENCY);
-        data.put("Start Date: ", this.START_DATE);
-        data.put("End Date: ", this.END_DATE);
+        data.put("Currency: ", this.currency);
+        data.put("Start Date: ", this.start_date);
+        data.put("End Date: ", this.end_date);
         data.put("Avg Buy: ", avgBuyPeriod.toString());
         data.put("Standard Deviation of sell rates: ", standardDeviationOfSellRates.toString());
 

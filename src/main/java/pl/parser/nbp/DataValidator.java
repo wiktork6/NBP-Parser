@@ -1,4 +1,4 @@
-package com.example;
+package pl.parser.nbp;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -6,10 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DataValidator {
-    private static final String USD_CODE = "USD";
-    private static final String EUR_CODE = "EUR";
-    private static final String GBP_CODE = "GBP";
-    private static final String CHF_CODE = "CHF";
+
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
 
@@ -46,16 +43,33 @@ public class DataValidator {
         return currency.equals("USD") || currency.equals("EUR") || currency.equals("CHF") || currency.equals("GBP");
     }
 
-    public boolean isDateRangeValid(String startDate, String endDate){
+    public boolean isDateLater(String startDate, String endDate){
         try{
             SimpleDateFormat sdformat = new SimpleDateFormat(DATE_FORMAT);
             Date d1 = sdformat.parse(startDate);
             Date d2 = sdformat.parse(endDate);
-            return !(d1.compareTo(d2)>0);
+            return d1.compareTo(d2)>0;
         }catch(ParseException e){
             return false;
         }
     }
+
+    public int getCurrentYear() throws ParseException {
+
+        Date dateNow = new Date();
+
+        return 1900 + dateNow.getYear();
+    }
+    public boolean isDateInFuture(String date) throws ParseException {
+        SimpleDateFormat sdformat = new SimpleDateFormat(DATE_FORMAT);
+        Date d1 = sdformat.parse(date);
+
+        Date dateNow = new Date();
+        Date d2 = sdformat.parse(sdformat.format(dateNow));
+
+        return d1.compareTo(d2)>=0;
+    }
+
     public boolean isDateInRange(String startDate, String endDate, String date){
         try{
             SimpleDateFormat sdformat = new SimpleDateFormat(DATE_FORMAT);
@@ -66,8 +80,11 @@ public class DataValidator {
         }catch(ParseException e){
             return false;
         }
+    }
 
-
+    public static void main(String[] args) throws ParseException {
+        DataValidator dataValidator = new DataValidator();
+        System.out.println(dataValidator.isDateInFuture("2020-04-30"));
     }
 }
 
