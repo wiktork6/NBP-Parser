@@ -11,8 +11,8 @@ public class DateBuilder {
     }
 
     public List<String> getDates(String startDate, String endDate){
-        List<LocalDate> listOfDates = getLocalDates(startDate, endDate);
         List<String> dates = new LinkedList();
+        List<LocalDate> listOfDates = getLocalDates(startDate, endDate);
         for(int i=0; i<listOfDates.size();i++){
             dates.add(listOfDates.get(i).toString());
         }

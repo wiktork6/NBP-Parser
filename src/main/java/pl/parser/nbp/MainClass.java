@@ -34,7 +34,11 @@ public class MainClass {
                     if(dataValidator.isDateValid(endDate) && (!dataValidator.isDateLater(startDate,endDate)) && !dataValidator.isDateInFuture(endDate)){
                         DataAccess dataAccess = new DataAccess(currency,startDate,endDate);
                         Map<String,String> data = dataAccess.getData();
-                        System.out.println(data.toString());
+                        if(data.get("Avg Buy: ").equals("NaN")){
+                            System.out.println("No data for provided period");
+                        }else{
+                            System.out.println(data.toString());
+                        }
                     }else{
                         System.out.println("Incorrect end date");
                     }
