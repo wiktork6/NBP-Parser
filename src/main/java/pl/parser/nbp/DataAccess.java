@@ -1,11 +1,7 @@
 package pl.parser.nbp;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.text.ParseException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +11,7 @@ public class DataAccess {
     private final String currency;
     private final String start_date;
     private final String end_date;
-    public static final String BUY_RATE_TAG = "kurs_kupna";
-    public static final String SELL_RATE_TAG = "kurs_sprzedazy";
+    private static final String FORMAT = "yyyy-MM-dd";
 
     public DataAccess(String currency, String start_date, String end_date) {
         this.currency = currency;
@@ -24,8 +19,7 @@ public class DataAccess {
         this.end_date = end_date;
     }
 
-    public Map<String,String> getData() throws ParserConfigurationException, SAXException, IOException, ParseException {
-        HttpConnect httpConnect = HttpConnect.getHttpConnect();
+    public Map<String,String> getData() throws IOException{
         DateBuilder dateBuilder = new DateBuilder();
         List<String> dates = dateBuilder.getDates(this.start_date, this.end_date);
         Map<String,String> data = new HashMap<>();
@@ -35,20 +29,31 @@ public class DataAccess {
 
 
         List<String> links = linkBuilder.getLinksToDocuments(this.start_date, this.end_date);
-        DataValidator dataValidator = new DataValidator();
+        DateValidator dateValidator = new DateValidator(FORMAT);
+        XMLParserJaxB xmlParserJaxB = new XMLParserJaxB();
+
         for(String link: links) {
-            HttpURLConnection con = httpConnect.createRequest(link);
-            XmlParser xmlParser = new XmlParser(con);
-            String publicationDate = xmlParser.getPublicationDate();
-            if(dataValidator.isDateInRange(this.start_date, this.end_date, publicationDate)){
-                con = httpConnect.createRequest(link);
-                xmlParser = new XmlParser(con);
-                Double avgBuyDay = xmlParser.getPriceValue(this.currency, BUY_RATE_TAG);
-                con = httpConnect.createRequest(link);
-                xmlParser = new XmlParser(con);
-                Double avgSellDay = xmlParser.getPriceValue(this.currency, SELL_RATE_TAG);
-                avgBuyList.add(avgBuyDay);
-                avgSellList.add(avgSellDay);
+            URL url = new URL(link);
+            CurrencyDocument currencyDocument = xmlParserJaxB.getCurrencyDocument(url);
+            String publicationDate = currencyDocument.getPublicationDate();
+            if(dateValidator.isDateInRange(this.start_date, this.end_date, publicationDate)){
+                List<Position> positions = currencyDocument.getPositions();
+                Double avgBuyRate = null;
+                Double avgSellRate = null;
+
+                for(Position position : positions){
+                    if(position.getCurrencyTag().equals(currency)){
+                        String avgBuy = position.getBuyRate();
+                        avgBuy = avgBuy.replace(',','.');
+                        avgBuyRate = Double.valueOf(avgBuy);
+                        String avgSell = position.getSalesRate();
+                        avgSell = avgSell.replace(',','.');
+                        avgSellRate = Double.valueOf(avgSell);
+                        break;
+                    }
+                }
+                avgBuyList.add(avgBuyRate);
+                avgSellList.add(avgSellRate);
                 if(avgBuyList.size()==dates.size()){
                     break;
                 }
