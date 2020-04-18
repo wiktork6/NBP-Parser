@@ -1,0 +1,12 @@
+pl\parser\nbp\MainClass.class
+pl\parser\nbp\LinkBuilder.class
+pl\parser\nbp\XMLParserJaxB.class
+pl\parser\nbp\DateValidator.class
+pl\parser\nbp\CurrencyValidator.class
+pl\parser\nbp\Constants.class
+pl\parser\nbp\DataCounter.class
+pl\parser\nbp\CurrencyDocument.class
+pl\parser\nbp\DataAccess.class
+pl\parser\nbp\DateBuilder.class
+pl\parser\nbp\Position.class
+pl\parser\nbp\Validator.class
