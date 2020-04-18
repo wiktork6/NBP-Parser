@@ -20,5 +20,9 @@ public class Constants {
     public static final String GBP = "GBP";
     public static final String CHF = "CHF";
     public static final String USD = "USD";
+    public static final String CURRENCY_KEY = "Currency: ";
+    public static final String START_DATE_KEY = "Start Date: ";
+    public static final String END_DATE_KEY = "End Date: ";
+    public static final String STANDARD_DEVIATION_KEY = "Standard Deviation of sell rates: ";
 
 }

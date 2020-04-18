@@ -62,11 +62,11 @@ public class DataAccess {
         Double avgBuyPeriod = dataCounter.average(avgBuyList);
         Double standardDeviationOfSellRates = dataCounter.standardDeviation(avgSellList);
 
-        data.put("Currency: ", this.currency);
-        data.put("Start Date: ", this.startDate);
-        data.put("End Date: ", this.endDate);
-        data.put("Avg Buy: ", avgBuyPeriod.toString());
-        data.put("Standard Deviation of sell rates: ", standardDeviationOfSellRates.toString());
+        data.put(Constants.CURRENCY_KEY, this.currency);
+        data.put(Constants.START_DATE_KEY, this.startDate);
+        data.put(Constants.END_DATE_KEY, this.endDate);
+        data.put(Constants.AVG_BUY, avgBuyPeriod.toString());
+        data.put(Constants.STANDARD_DEVIATION_KEY, standardDeviationOfSellRates.toString());
 
         return data;
     }
