@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CurrencyValidatorTest {
     private CurrencyValidator SUT = new CurrencyValidator(new HashSet<>(Set.of("EUR","GBP","CHF","USD")));
     @Test
-    public void testValidCurrency_isValid_returnsTrue() throws Exception{
+    public void testValidCurrencyisValidReturnsTrue() throws Exception{
         //given
         String currencyEur = "EUR";
         String currencyUsd = "USD";
@@ -29,7 +29,7 @@ public class CurrencyValidatorTest {
 
     }
     @Test
-    public void testInvalidCurrency_isValid_returnsFalse() throws Exception{
+    public void testInvalidCurrencyisValidReturnsFalse() throws Exception{
         //given
         String currency = "PLN";
         //when

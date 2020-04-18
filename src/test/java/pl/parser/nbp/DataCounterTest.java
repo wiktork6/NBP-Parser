@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DataCounterTest {
     private DataCounter SUT = new DataCounter();
     @Test
-    public void testEmptyList_average_returnsNaN() throws Exception{
+    public void testEmptyListAverageReturnsNaN() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         //when
@@ -20,7 +20,7 @@ public class DataCounterTest {
     }
 
     @Test
-    public void testLengthOneList_average_returnsTheOnlyNumber() throws Exception{
+    public void testLengthOneListAverageReturnsCorrectValue() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         numbers.add(5.4);
@@ -31,7 +31,7 @@ public class DataCounterTest {
     }
 
     @Test
-    public void testListWithMultiplePositiveValues_average_returnsCorrectValue() throws Exception{
+    public void testListWithMultiplePositiveValuesAverageReturnsCorrectValue() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         numbers.add(5.4);
@@ -46,7 +46,7 @@ public class DataCounterTest {
     }
 
     @Test
-    public void testListWithMultipleNegativeValues_average_returnsCorrectValue() throws Exception{
+    public void testListWithMultipleNegativeValuesAverageReturnsCorrectValue() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         numbers.add(-3.1);
@@ -61,7 +61,7 @@ public class DataCounterTest {
     }
 
     @Test
-    public void testListWithMultiplePositiveAndNegativeValues_average_returnsCorrectValue() throws Exception{
+    public void testListWithMultiplePositiveAndNegativeValuesAverageReturnsCorrectValue() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         numbers.add(5.4);
@@ -82,7 +82,7 @@ public class DataCounterTest {
     }
 
     @Test
-    public void testEmptyList_standardDeviation_returnsNaN() throws Exception{
+    public void testEmptyListStandardDeviationReturnsNaN() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         //when
@@ -91,7 +91,7 @@ public class DataCounterTest {
         assertEquals(Double.valueOf("NaN"),result);
     }
     @Test
-    public void testLengthOneList_standardDeviation_returnsZero() throws Exception{
+    public void testLengthOneListStandardDeviationReturnsZero() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         numbers.add(5.4);
@@ -101,7 +101,7 @@ public class DataCounterTest {
         assertEquals(0,result);
     }
     @Test
-    public void testListWithMultipleValues_standardDeviation_returnsCorrectValue() throws Exception{
+    public void testListWithMultipleValuesStandardDeviationReturnsCorrectValue() throws Exception{
         //given
         List<Double> numbers = new ArrayList<>();
         numbers.add(5.4);

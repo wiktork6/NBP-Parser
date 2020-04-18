@@ -8,7 +8,7 @@ public class DateValidatorTest {
     private DateValidator SUT = new DateValidator("yyyy-MM-dd");
 
     @Test
-    public void testInvalidDateFormat_isValid_returnsFalse() throws Exception{
+    public void testInvalidDateFormatIsValidReturnsFalse() throws Exception{
         //given
         String date = "2013/03/03";
         //when
@@ -18,7 +18,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void testValidDateFormat_isValid_returnsTrue() throws Exception{
+    public void testValidDateFormatIsValidReturnsTrue() throws Exception{
         //given
         String date = "2013-03-03";
         //when
@@ -28,7 +28,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void testInvalidMonthDate_isValid_returnsFalse() throws Exception{
+    public void testInvalidMonthDateIsValidReturnsFalse() throws Exception{
         //given
         String date = "2013-13-03";
         //when
@@ -38,7 +38,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void testInvalidDayDate_isValid_returnsFalse() throws Exception{
+    public void testInvalidDayDateIsValidReturnsFalse() throws Exception{
         //given
         String date = "2013-02-29";
         //when
@@ -48,7 +48,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void testValidDate_isValid_returnsTrue() throws Exception{
+    public void testValidDateIsValidReturnsTrue() throws Exception{
         //given
         String date = "2013-02-28";
         //when

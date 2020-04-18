@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataAccessTest {
     @Test
-    public void testRangeOfDatesFromSameYear_getData_returnsCorrectValues() throws Exception{
+    public void testRangeOfDatesFromSameYearGetDataReturnsCorrectValues() throws Exception{
         //given
         String currency = "EUR";
         String startDate = "2013-01-28";
@@ -23,7 +23,7 @@ public class DataAccessTest {
         assertEquals(correctData,result);
     }
     @Test
-    public void testRangeOfDatesFromDifferentYears_getData_returnsCorrectValues() throws Exception{
+    public void testRangeOfDatesFromDifferentYearsGetDataReturnsCorrectValues() throws Exception{
         //given
         String currency = "USD";
         String startDate = "2013-12-31";
@@ -37,7 +37,7 @@ public class DataAccessTest {
         assertEquals(correctData,result);
     }
     @Test
-    public void testStartDateAndEndDateAreSame_getData_returnsCorrectValues() throws Exception{
+    public void testStartDateAndEndDateAreSameGetDataReturnsCorrectValues() throws Exception{
         //given
         String currency = "CHF";
         String startDate = "2013-01-02";
@@ -51,7 +51,7 @@ public class DataAccessTest {
         assertEquals(correctData,result);
     }
     @Test
-    public void testDateRangeWithNoData_getData_returnsNaN() throws Exception{
+    public void testDateRangeWithNoDataGetDataReturnsNaN() throws Exception{
         //given
         String currency = "EUR";
         String startDate = "2013-01-01";

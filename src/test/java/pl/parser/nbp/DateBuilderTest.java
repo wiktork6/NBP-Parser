@@ -11,7 +11,7 @@ public class DateBuilderTest {
     private DateBuilder SUT = new DateBuilder();
 
     @Test
-    public void testValidPairOfDates_getDates_returnsExpectedListOfDates() throws Exception{
+    public void testValidPairOfDatesGetDatesReturnsExpectedListOfDates() throws Exception{
         //given
         String startDate = "2013-12-30";
         String endDate = "2014-01-02";
@@ -24,7 +24,7 @@ public class DateBuilderTest {
     }
 
     @Test
-    public void testInvalidPairOfDates_getDates_returnsEmptyList() throws Exception{
+    public void testInvalidPairOfDatesGetDatesReturnsEmptyList() throws Exception{
         //given
         String startDate = "2013-01-28";
         String endDate = "2013-01-27";
@@ -37,7 +37,7 @@ public class DateBuilderTest {
     }
 
     @Test
-    public void testInvalidFormatOfDates_getDates_returnsEmptyList() throws Exception{
+    public void testInvalidFormatOfDatesGetDatesReturnsEmptyList() throws Exception{
         //given
         String startDate = "Not a date";
         String endDate = "Not a date too";
@@ -63,7 +63,7 @@ public class DateBuilderTest {
     }
 
     @Test
-    public void testFebruaryDatesInLeapYear_getDates_returnsCorrectList() throws Exception{
+    public void testFebruaryDatesInLeapYearGetDatesReturnsCorrectList() throws Exception{
         //given
         String startDate = "2016-02-27";
         String endDate = "2016-03-01";
@@ -75,7 +75,7 @@ public class DateBuilderTest {
         assertEquals(dates,result);
     }
     @Test
-    public void testFebruaryDatesInNotLeapYear_getDates_returnsCorrectList() throws Exception{
+    public void testFebruaryDatesInNotLeapYearGetDatesReturnsCorrectList() throws Exception{
         //given
         String startDate = "2015-02-27";
         String endDate = "2015-03-01";
