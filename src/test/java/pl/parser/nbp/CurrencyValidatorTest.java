@@ -29,7 +29,7 @@ public class CurrencyValidatorTest {
 
     }
     @Test
-    public void testInvalidCurrencyisValidReturnsFalse() throws Exception{
+    public void testInvalidCurrencyIsValidReturnsFalse() throws Exception{
         //given
         String currency = "PLN";
         //when
