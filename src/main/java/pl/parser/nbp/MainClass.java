@@ -1,25 +1,21 @@
 package pl.parser.nbp;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 
 public class MainClass {
 
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException {
         boolean flag = true;
 	    while(flag){
             Scanner scanner = new Scanner(System.in);
             DateValidator dateValidator = new DateValidator(Constants.DATE_FORMAT);
-            Set<String> validCurrencies = new HashSet<>();
-            validCurrencies.add("EUR");
-            validCurrencies.add("GBP");
-            validCurrencies.add("USD");
-            validCurrencies.add("CHF");
+            Set<String> validCurrencies = new HashSet<>(Set.of(Constants.EUR,Constants.GBP,Constants.CHF,Constants.USD));
             CurrencyValidator currencyValidator = new CurrencyValidator(validCurrencies);
             System.out.println(Constants.PROVIDE_CURRENCY);
             System.out.println(Constants.CHOOSE_CURRENCY);

@@ -64,7 +64,7 @@ public class LinkBuilder {
         return categorisedDocuments;
     }
 
-    private static List<String> getAllYearsParams(String startDate, String endDate){
+    private List<String> getAllYearsParams(String startDate, String endDate){
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
         List<String> yearsParams = new LinkedList<>();

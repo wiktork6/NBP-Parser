@@ -9,34 +9,33 @@ import java.util.Map;
 
 public class DataAccess {
     private final String currency;
-    private final String start_date;
-    private final String end_date;
-    private static final String FORMAT = "yyyy-MM-dd";
+    private final String startDate;
+    private final String endDate;
 
-    public DataAccess(String currency, String start_date, String end_date) {
+    public DataAccess(String currency, String startDate, String endDate) {
         this.currency = currency;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Map<String,String> getData() throws IOException{
         DateBuilder dateBuilder = new DateBuilder();
-        List<String> dates = dateBuilder.getDates(this.start_date, this.end_date);
+        List<String> dates = dateBuilder.getDates(this.startDate, this.endDate);
         Map<String,String> data = new HashMap<>();
         List<Double> avgBuyList = new LinkedList<>();
         List<Double> avgSellList = new LinkedList<>();
         LinkBuilder linkBuilder = new LinkBuilder();
 
 
-        List<String> links = linkBuilder.getLinksToDocuments(this.start_date, this.end_date);
-        DateValidator dateValidator = new DateValidator(FORMAT);
+        List<String> links = linkBuilder.getLinksToDocuments(this.startDate, this.endDate);
+        DateValidator dateValidator = new DateValidator(Constants.DATE_FORMAT);
         XMLParserJaxB xmlParserJaxB = new XMLParserJaxB();
 
         for(String link: links) {
             URL url = new URL(link);
             CurrencyDocument currencyDocument = xmlParserJaxB.getCurrencyDocument(url);
             String publicationDate = currencyDocument.getPublicationDate();
-            if(dateValidator.isDateInRange(this.start_date, this.end_date, publicationDate)){
+            if(dateValidator.isDateInRange(this.startDate, this.endDate, publicationDate)){
                 List<Position> positions = currencyDocument.getPositions();
                 Double avgBuyRate = null;
                 Double avgSellRate = null;
@@ -64,8 +63,8 @@ public class DataAccess {
         Double standardDeviationOfSellRates = dataCounter.standardDeviation(avgSellList);
 
         data.put("Currency: ", this.currency);
-        data.put("Start Date: ", this.start_date);
-        data.put("End Date: ", this.end_date);
+        data.put("Start Date: ", this.startDate);
+        data.put("End Date: ", this.endDate);
         data.put("Avg Buy: ", avgBuyPeriod.toString());
         data.put("Standard Deviation of sell rates: ", standardDeviationOfSellRates.toString());
 

@@ -1,6 +1,7 @@
 package pl.parser.nbp;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ public class DateBuilder {
 
     public DateBuilder(){
     }
+
 
     public List<String> getDates(String startDate, String endDate){
         List<String> dates = new LinkedList();
@@ -20,9 +22,16 @@ public class DateBuilder {
     }
 
     private List<LocalDate> getLocalDates(String startDate, String endDate){
-        LocalDate start = LocalDate.parse(startDate);
-        LocalDate end = LocalDate.parse(endDate);
-        List<LocalDate> dates = new LinkedList<>(start.datesUntil(end).collect(Collectors.toList()));
+        LocalDate start;
+        LocalDate end;
+        List<LocalDate> dates;
+        try{
+            start = LocalDate.parse(startDate);
+            end = LocalDate.parse(endDate);
+            dates = new LinkedList<>(start.datesUntil(end).collect(Collectors.toList()));
+        }catch(IllegalArgumentException | DateTimeParseException e){
+            return new LinkedList<>();
+        }
         dates.add(end);
         return dates;
     }

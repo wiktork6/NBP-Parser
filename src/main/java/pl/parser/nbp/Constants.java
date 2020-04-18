@@ -16,4 +16,9 @@ public class Constants {
     public static final String INCORRECT_START_DATE = "Incorrect start date";
     public static final String INCORRECT_CURRENCY = "Incorrect currency";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String EUR = "EUR";
+    public static final String GBP = "GBP";
+    public static final String CHF = "CHF";
+    public static final String USD = "USD";
+
 }
