@@ -5,9 +5,6 @@ import java.util.List;
 
 public class DataCounter {
 
-    public DataCounter() {
-    }
-
     public Double average(List<Double> listOfValues){
         return roundUp(listOfValues.stream().reduce(0.0,Double::sum)/listOfValues.size());
     }

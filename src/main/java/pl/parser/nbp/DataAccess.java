@@ -43,11 +43,13 @@ public class DataAccess {
                 for(Position position : positions){
                     if(position.getCurrencyTag().equals(currency)){
                         String avgBuy = position.getBuyRate();
-                        avgBuy = avgBuy.replace(',','.');
-                        avgBuyRate = Double.valueOf(avgBuy);
+                        if(!avgBuy.equals("") && avgBuy!=null){
+                            avgBuyRate = parseDouble(avgBuy);
+                        }
                         String avgSell = position.getSalesRate();
-                        avgSell = avgSell.replace(',','.');
-                        avgSellRate = Double.valueOf(avgSell);
+                        if(!avgSell.equals("") && avgSell!=null){
+                            avgSellRate = parseDouble(avgSell);
+                        }
                         break;
                     }
                 }
@@ -69,6 +71,10 @@ public class DataAccess {
         data.put(Constants.STANDARD_DEVIATION_KEY, standardDeviationOfSellRates.toString());
 
         return data;
+    }
+
+    private Double parseDouble(String number){
+        return Double.valueOf(number.replace(',','.'));
     }
 
 }

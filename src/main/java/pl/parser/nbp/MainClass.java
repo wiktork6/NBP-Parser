@@ -1,7 +1,6 @@
 package pl.parser.nbp;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,9 +9,9 @@ import java.util.Set;
 public class MainClass {
 
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException {
         boolean flag = true;
-	    while(flag){
+        while(flag){
             Scanner scanner = new Scanner(System.in);
             DateValidator dateValidator = new DateValidator(Constants.DATE_FORMAT);
             Set<String> validCurrencies = new HashSet<>(Set.of(Constants.EUR,Constants.GBP,Constants.CHF,Constants.USD));
@@ -30,7 +29,7 @@ public class MainClass {
             System.out.println(Constants.INPUT_START_DATE);
             String startDate = scanner.next();
             System.out.println(Constants.CHOSEN_START_DATE + startDate);
-            if(!(dateValidator.isValid(startDate) && (!dateValidator.isDateLater(Constants.LOWER_DATE_LIMIT,startDate))&& !dateValidator.isDateInFuture(startDate))) {
+            if(!(dateValidator.isValid(startDate) && !((dateValidator.compareDates(Constants.LOWER_DATE_LIMIT,startDate))>0) && !dateValidator.isDateInFuture(startDate))) {
                 System.out.println(Constants.INCORRECT_START_DATE);
                 continue;
             }
@@ -38,7 +37,7 @@ public class MainClass {
             System.out.println(Constants.INPUT_END_DATE);
             String endDate = scanner.next();
             System.out.println(Constants.CHOSEN_END_DATE + endDate);
-            if(!(dateValidator.isValid(endDate) && (!dateValidator.isDateLater(startDate,endDate)) && !dateValidator.isDateInFuture(endDate))) {
+            if(!(dateValidator.isValid(endDate) && !((dateValidator.compareDates(startDate,endDate))>0) && !dateValidator.isDateInFuture(endDate))) {
                 System.out.println(Constants.INCORRECT_END_DATE);
                 continue;
             }
@@ -49,7 +48,7 @@ public class MainClass {
             }else{
                 System.out.println(data.toString());
             }
-	    }
+        }
     }
 
     public static boolean isNaN(Map<String,String> data){

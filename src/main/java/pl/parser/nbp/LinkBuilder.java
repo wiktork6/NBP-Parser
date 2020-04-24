@@ -15,8 +15,6 @@ public class LinkBuilder {
     public static final String TXT = ".txt";
     public static final String XML = ".xml";
 
-    public LinkBuilder() {
-    }
 
     public List<String> getLinksToDocuments(String startDate, String endDate) {
 

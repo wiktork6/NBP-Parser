@@ -8,10 +8,6 @@ import java.util.stream.Collectors;
 
 public class DateBuilder {
 
-    public DateBuilder(){
-    }
-
-
     public List<String> getDates(String startDate, String endDate){
         List<String> dates = new LinkedList();
         List<LocalDate> listOfDates = getLocalDates(startDate, endDate);

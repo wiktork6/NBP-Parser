@@ -7,8 +7,6 @@ import java.net.URL;
 
 public class XMLParserJaxB {
 
-    public XMLParserJaxB() {
-    }
 
     public CurrencyDocument getCurrencyDocument(URL url){
         try{
